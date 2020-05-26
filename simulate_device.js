@@ -1,7 +1,14 @@
+/**
+ * @file simulate_devices.js
+ * @author NZ
+ * @license MIT
+ * @description Streams a simple Request/Response protocol into wireshark 
+ */
 
-
+// Choose the link layer for pcap data, 148 is reserved for users: https://www.tcpdump.org/linktypes.html 
 var link_type = 148;
 
+// Create .pcap header 
 function get_header(link_layer_type){
     var pcap_header = [];
 
@@ -23,6 +30,7 @@ function get_header(link_layer_type){
     return pcap_header;
 }
 
+// Convert uint32t to bytes, a bit painful in js 
 function u32_2a (num){
     return Array.prototype.slice.call(new Uint8Array(Uint32Array.from([num]).buffer)).reverse();
 }
@@ -31,6 +39,7 @@ function u16_2a(num){
     return Array.prototype.slice.call(new Uint8Array(Uint16Array.from([num]).buffer)).reverse();
 }
 
+// Gets a single .pcap packet timestamping with date.now()
 function get_packet (payload){
     var arr = [];
     var time_now = Date.now();
@@ -54,6 +63,8 @@ function send_header(){
 send_header();
 
 var seq = 0;
+
+// Request Packet Example
 function req_packet(){
     var send_buf = [];
     var adr = 0x15; 
@@ -65,6 +76,7 @@ function req_packet(){
     process.stdout.write(Uint8Array.from(packet_arr));
 }
 
+// Response Packet Example 
 function res_packet(){
     var send_buf = [];
     var adr = 0x15;
@@ -83,6 +95,7 @@ function res_packet(){
     process.stdout.write(Uint8Array.from(packet_arr));
 }
 
+// Generate data every 2.5s
 setInterval(()=>{
     req_packet();
     res_packet();

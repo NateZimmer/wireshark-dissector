@@ -23,7 +23,7 @@ copy demo.lua "C:\Program Files\Wireshark\plugins\"
 Start streaming data into Wireshark: 
 
 ```
-node simulate_device.js | "C:\Program Files\Wireshark\wireshark.exe" -k -i -
+node simulate_devices.js | "C:\Program Files\Wireshark\wireshark.exe" -k -i -
 ```
 
 The following demonstrates the data stream as well as the dissection: 

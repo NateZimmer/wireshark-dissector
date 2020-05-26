@@ -1,6 +1,6 @@
 -- @file demo.lua
 -- @author NZ
--- @description Reference lua dissector 
+-- @description Reference lua chain dissector 
 -- @license MIT 
 
 -- Define protocol 
